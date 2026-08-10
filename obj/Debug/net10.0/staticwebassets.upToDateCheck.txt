@@ -1,7 +1,5 @@
-wwwroot\app.css
-wwwroot\css\sabinfotecherp.css
+wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.css.map
 wwwroot\favicon.png
-wwwroot\js\camera.js
 wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css
 wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map
 wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css
@@ -23,7 +21,7 @@ wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.css.map
 wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.min.css
 wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.min.css.map
 wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.css
-wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.css.map
+wwwroot\app.css
 wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.min.css
 wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.min.css.map
 wwwroot\lib\bootstrap\dist\css\bootstrap.css
@@ -46,11 +44,12 @@ wwwroot\lib\bootstrap\dist\js\bootstrap.js
 wwwroot\lib\bootstrap\dist\js\bootstrap.js.map
 wwwroot\lib\bootstrap\dist\js\bootstrap.min.js
 wwwroot\lib\bootstrap\dist\js\bootstrap.min.js.map
+wwwroot\js\camera.js
+wwwroot\css\sabinfotecherp.css
 Components\Layout\ReconnectModal.razor.js
 C:\Users\WORK\.nuget\packages\microsoft.aspnetcore.app.internal.assets\10.0.10\build\..\_framework\blazor.web.js
 C:\Users\WORK\.nuget\packages\microsoft.aspnetcore.app.internal.assets\10.0.10\build\..\_framework\blazor.server.js
-C:\Users\WORK\source\repos\Erp\Erpweb\wwwroot\css\sabinfotecherp.css
-C:\Users\WORK\source\repos\Erp\Erpweb\wwwroot\js\camera.js
+C:\Users\WORK\source\repos\Erp\Erpweb\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.css.map
 C:\Users\WORK\source\repos\Erp\Erpweb\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css
 C:\Users\WORK\source\repos\Erp\Erpweb\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map
 C:\Users\WORK\source\repos\Erp\Erpweb\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css
@@ -72,6 +71,7 @@ C:\Users\WORK\source\repos\Erp\Erpweb\wwwroot\lib\bootstrap\dist\css\bootstrap-u
 C:\Users\WORK\source\repos\Erp\Erpweb\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.min.css
 C:\Users\WORK\source\repos\Erp\Erpweb\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.min.css.map
 C:\Users\WORK\source\repos\Erp\Erpweb\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.css
+C:\Users\WORK\source\repos\Erp\Erpweb\wwwroot\app.css
 C:\Users\WORK\source\repos\Erp\Erpweb\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.min.css
 C:\Users\WORK\source\repos\Erp\Erpweb\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.min.css.map
 C:\Users\WORK\source\repos\Erp\Erpweb\wwwroot\lib\bootstrap\dist\css\bootstrap.css
@@ -97,5 +97,5 @@ C:\Users\WORK\source\repos\Erp\Erpweb\wwwroot\lib\bootstrap\dist\js\bootstrap.mi
 C:\Users\WORK\source\repos\Erp\Erpweb\Components\Layout\ReconnectModal.razor.js
 C:\Users\WORK\.nuget\packages\microsoft.aspnetcore.app.internal.assets\10.0.10\_framework\blazor.web.js
 C:\Users\WORK\.nuget\packages\microsoft.aspnetcore.app.internal.assets\10.0.10\_framework\blazor.server.js
-C:\Users\WORK\source\repos\Erp\Erpweb\wwwroot\app.css
-C:\Users\WORK\source\repos\Erp\Erpweb\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.css.map
+C:\Users\WORK\source\repos\Erp\Erpweb\wwwroot\js\camera.js
+C:\Users\WORK\source\repos\Erp\Erpweb\wwwroot\css\sabinfotecherp.css
