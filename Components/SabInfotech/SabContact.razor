@@ -1,0 +1,72 @@
+﻿<section class="section-padding">
+    <div class="container">
+        <div class="section-header">
+            <h2>Request a Live ERP Demonstration</h2>
+            <p>Our industrial software team will contact you to schedule an on-site or online demo.</p>
+        </div>
+
+        <div class="grid-2">
+            <div class="contact-form">
+                @if (submitted)
+                {
+                    <div style="background: #dcfce7; color: #166534; padding: 15px; border-radius: var(--radius-sm); font-weight: 600;">
+                        Thank you! Your demo request has been submitted. Our team will reach out shortly.
+                    </div>
+                }
+                else
+                {
+                    <EditForm Model="contactModel" OnValidSubmit="HandleSubmit">
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input class="form-control" @bind="contactModel.Name" required placeholder="e.g. Rahul Sharma" />
+                        </div>
+                        <div class="form-group">
+                            <label>Company / Plant Name</label>
+                            <input class="form-control" @bind="contactModel.Company" required placeholder="e.g. Paramount Textiles Ltd" />
+                        </div>
+                        <div class="form-group">
+                            <label>Industry Type</label>
+                            <select class="form-control" @bind="contactModel.Industry">
+                                <option value="Textile">Textile Processing / Spinning</option>
+                                <option value="Wire">Wire Manufacturing / Cabling</option>
+                                <option value="Both">Textile & Wire Processing</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Phone Number</label>
+                            <input class="form-control" @bind="contactModel.Phone" required placeholder="+91 9876543210" />
+                        </div>
+                        <button type="submit" class="btn-nav-cta" style="width: 100%; padding: 12px;">Submit Demo Request</button>
+                    </EditForm>
+                }
+            </div>
+
+            <div style="padding: 20px;">
+                <h3>SabInfotech ERP Headquarters</h3>
+                <p style="color: var(--text-muted);">Serving textile hubs and wire manufacturing clusters across India.</p>
+                <hr style="border: none; border-top: 1px solid var(--border-color); margin: 20px 0;" />
+                <p>📍 <strong>Industrial Zone:</strong> 121, 1st Floor, Hariom Plaza, M.G. Road, Borivali East, Mumbai, Maharashtra 400066</p>
+                <p>📞 <strong>Phone:</strong> +91 98765 43210</p>
+                <p>✉️ <strong>Email:</strong> sales@sabinfotech.com</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+@code {
+    private ContactModel contactModel = new();
+    private bool submitted = false;
+
+    private void HandleSubmit()
+    {
+        submitted = true;
+    }
+
+    public class ContactModel
+    {
+        public string Name { get; set; } = "";
+        public string Company { get; set; } = "";
+        public string Industry { get; set; } = "Textile";
+        public string Phone { get; set; } = "";
+    }
+}

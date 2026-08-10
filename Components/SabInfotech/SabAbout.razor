@@ -1,0 +1,45 @@
+﻿<section class="section-padding">
+    <div class="container">
+        <div class="section-header">
+            <h2>Industrial Enterprise Platform</h2>
+            <p>Built specifically to eliminate operational gaps in heavy manufacturing, textile processing, and metal wire industries.</p>
+        </div>
+
+        <div class="grid-4" style="margin-bottom: 50px;">
+            <div class="stat-box">
+                <div class="stat-number">15+</div>
+                <div class="stat-label">Years Industrial Domain Expertise</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">Batch Traceability</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">99.8%</div>
+                <div class="stat-label">Inventory Accuracy</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">24/7</div>
+                <div class="stat-label">Live Floor Intelligence</div>
+            </div>
+        </div>
+
+        <div class="grid-2">
+            <div class="card-feature">
+                <h3>Textile Processing Sector</h3>
+                <p>Complete control from raw cotton spinning to loom weaving, dye house lab recipes, finishing stenters, and packing roll barcodes.</p>
+                <button class="btn-nav-cta" style="margin-top: 15px;" @onclick='() => OnNavigate.InvokeAsync("textile")'>Explore Textile Suite</button>
+            </div>
+            <div class="card-feature">
+                <h3>Wire & Cabling Sector</h3>
+                <p>Precision ERP handling wire drawing die passes, annealing thermal batch logs, galvanizing zinc microns, and bobbin tare weights.</p>
+                <button class="btn-nav-cta" style="margin-top: 15px;" @onclick='() => OnNavigate.InvokeAsync("wire")'>Explore Wire Suite</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+@code {
+    [Parameter]
+    public EventCallback<string> OnNavigate { get; set; }
+}

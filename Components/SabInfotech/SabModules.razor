@@ -1,0 +1,78 @@
+﻿<section class="section-padding">
+    <div class="container">
+        <div class="section-header">
+            <h2>Interactive ERP Workspace Preview</h2>
+            <p>Select a business area to view feature checklists and dashboard interfaces.</p>
+        </div>
+
+        <div style="display: flex; gap: 10px; justify-content: center; margin-bottom: 30px;">
+            <button class="nav-tab-btn @(selectedModule == "Yarn" ? "active" : "")" @onclick='() => selectedModule = "Yarn"'>Yarn & Spinning</button>
+            <button class="nav-tab-btn @(selectedModule == "Weaving" ? "active" : "")" @onclick='() => selectedModule = "Weaving"'>Greige Weaving</button>
+            <button class="nav-tab-btn @(selectedModule == "Process" ? "active" : "")" @onclick='() => selectedModule = "Process"'>Dyeing & Process</button>
+            <button class="nav-tab-btn @(selectedModule == "Wire" ? "active" : "")" @onclick='() => selectedModule = "Wire"'>Wire Plant</button>
+            <button class="nav-tab-btn @(selectedModule == "Accounts" ? "active" : "")" @onclick='() => selectedModule = "Accounts"'>Accounts & GST</button>
+        </div>
+
+        <div class="grid-2" style="align-items: center;">
+            <div>
+                <h3>@GetTitle()</h3>
+                <p style="color: var(--text-muted); margin-bottom: 20px;">@GetDescription()</p>
+                <ul style="list-style: none; padding: 0;">
+                    @foreach (var feature in GetFeatures())
+                    {
+                        <li style="margin-bottom: 10px; font-weight: 600;">✅ @feature</li>
+                    }
+                </ul>
+            </div>
+
+            <div class="screen-mockup">
+                <div class="mockup-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span class="mockup-title">SabInfotech ERP // @selectedModule.ToUpper()</span>
+                </div>
+                <div class="mockup-body">
+                    <div style="font-size: 48px; margin-bottom: 10px;">📊</div>
+                    <h4>@selectedModule Module Dashboard</h4>
+                    <p style="color: var(--text-light); font-size: 13px;">Live Database Sync • Barcode Reader Active</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@code {
+    [Parameter] public EventCallback<string> OnNavigate { get; set; }
+    private string selectedModule = "Yarn";
+
+    private string GetTitle() => selectedModule switch
+    {
+        "Yarn" => "Yarn Procurement & Spinning Management",
+        "Weaving" => "Greige Fabric Weaving Control",
+        "Process" => "Process House & Dyeing Automation",
+        "Wire" => "Wire Drawing & Annealing Control",
+        "Accounts" => "GST Accounting & Warehouse ERP",
+        _ => ""
+    };
+
+    private string GetDescription() => selectedModule switch
+    {
+        "Yarn" => "Monitors raw material stocks, cotton lot testing, count quality, spinning logs, and package inventory.",
+        "Weaving" => "Captures loom output per shift, beam warping efficiency, fabric defect logs, and roll meters.",
+        "Process" => "Controls chemical lab recipes, dye batch costing, machine loading schedules, and stenter temperatures.",
+        "Wire" => "Tracks wire drawing pass diameters, die life, furnace heat logs, and bobbin tare weights.",
+        "Accounts" => "Handles e-Way bills, e-Invoicing, inventory valuation, GSTR filings, and multi-branch ledgers.",
+        _ => ""
+    };
+
+    private List<string> GetFeatures() => selectedModule switch
+    {
+        "Yarn" => new() { "Raw Cotton Lot Tracking", "Yarn Count & Strength Certificates", "Spinning Production Logs", "Package Stock Summary" },
+        "Weaving" => new() { "Loom Efficiency Analytics", "Warp / Weft Consumption", "Fabric Piece Defect Marking", "Roll Barcode Generation" },
+        "Process" => new() { "Dye Chemical Lab Recipe System", "Batch Costing Calculation", "Shade Approval Workflow", "Stenter Processing Logs" },
+        "Wire" => new() { "Die Reduction Calculator", "Bobbin Tare Weight Deduction", "Galvanizing Zinc Coating Log", "Scrap & Rejection Analytics" },
+        "Accounts" => new() { "Direct e-Invoice / e-Way Bill", "GSTR-1 & 3B Reconciliation", "Multi-Location Stock Sync", "Receivables & Payables Ledger" },
+        _ => new()
+    };
+}

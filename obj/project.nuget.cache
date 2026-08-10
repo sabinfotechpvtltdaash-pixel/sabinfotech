@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "KLhYMckSEYk=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\WORK\\source\\repos\\Erp\\Erpweb\\Erpweb.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\WORK\\.nuget\\packages\\microsoft.aspnetcore.app.internal.assets\\10.0.10\\microsoft.aspnetcore.app.internal.assets.10.0.10.nupkg.sha512"
+  ],
+  "logs": []
+}

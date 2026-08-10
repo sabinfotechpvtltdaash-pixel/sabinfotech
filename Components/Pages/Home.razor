@@ -1,0 +1,291 @@
+﻿@page "/"
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+@inject IJSRuntime JS
+@using System.IO
+
+<PageTitle>Camera & Barcode Capture App</PageTitle>
+
+<div style="max-width: 850px; margin: 0 auto; font-family: sans-serif; padding: 20px;">
+    <h1>📸 Local Camera & Barcode Scanner</h1>
+    <p>Capture images, scan barcodes, and log metadata directly to daily text files on your machine.</p>
+
+    <!-- Camera Viewport Layout -->
+    <div style="margin-bottom: 15px; background: #000; display: inline-block; border-radius: 8px; overflow: hidden; position: relative;">
+        <div style="width: 800px; height: 600px; background: #222; display: flex; align-items: center; justify-content: center;">
+            <video id="sabCameraVideo" width="800" height="600" style="display: @(CameraMode ? "block" : "none"); background: #000;" autoplay playsinline></video>
+
+            @if (!CameraMode)
+            {
+                <div style="position: absolute; color: #fff; text-align: center;">
+                    <p style="font-size: 18px; margin: 0;">Camera is turned off.</p>
+                </div>
+            }
+        </div>
+    </div>
+
+    <!-- Controls -->
+    <div style="margin-bottom: 20px;">
+        @if (!CameraMode)
+        {
+            <button @onclick="StartCamera" style="padding: 10px 20px; font-size: 16px; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; margin-right: 10px;">
+                ▶️ Start Camera
+            </button>
+        }
+        else
+        {
+            <button @onclick="CapturePhoto" style="padding: 10px 20px; font-size: 16px; background: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer; margin-right: 10px;">
+                📸 Capture Photo
+            </button>
+            <button @onclick="ScanBarcode" style="padding: 10px 20px; font-size: 16px; background: #ffc107; color: black; border: none; border-radius: 4px; cursor: pointer; margin-right: 10px;">
+                🔍 Scan Barcode
+            </button>
+            <button @onclick="StopCamera" style="padding: 10px 20px; font-size: 16px; background: #dc3545; color: white; border: none; border-radius: 4px; cursor: pointer;">
+                🛑 Stop Camera
+            </button>
+        }
+    </div>
+
+    <!-- Status Messages -->
+    @if (!string.IsNullOrEmpty(StatusMessage))
+    {
+        <div style="padding: 12px; border-radius: 4px; background-color: #e9ecef; border: 1px solid #ced4da; margin-top: 10px; word-break: break-all;">
+            <strong>Status:</strong> @StatusMessage
+        </div>
+    }
+
+    <hr style="margin: 30px 0;" />
+
+    <!-- Storage & Logs Viewer -->
+    <h2>🖼️ Day-wise Data Logs</h2>
+    <div style="margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
+        <label for="logDate">Select Date:</label>
+        <input type="date" id="logDate" @bind="SelectedDate" style="padding: 8px; font-size: 14px; border: 1px solid #ccc; border-radius: 4px;" />
+        <button @onclick="LoadDayLogs" style="padding: 8px 16px; font-size: 14px; background: #17a2b8; color: white; border: none; border-radius: 4px; cursor: pointer;">
+            🔍 Load Day Records
+        </button>
+    </div>
+
+    <!-- Display Barcode Text Logs -->
+    <div style="margin-top: 20px;">
+        <h3>🏷️ Barcode Logs (@SelectedDate.ToString("yyyy-MM-dd"))</h3>
+        @if (BarcodeLogs.Any())
+        {
+            <ul style="background: #f8f9fa; border: 1px solid #ddd; padding: 15px 30px; border-radius: 4px; max-height: 200px; overflow-y: auto;">
+                @foreach (var log in BarcodeLogs)
+                {
+                    <li>@log</li>
+                }
+            </ul>
+        }
+        else
+        {
+            <p style="color: #6c757d;">
+                No barcode entries found in <code>D:\Ashwin\BarcodeLog_@(SelectedDate.ToString("yyyy-MM-dd")).txt</code>.
+            </p>
+        }
+    </div>
+
+    <!-- Display Saved Images -->
+    <div style="margin-top: 20px;">
+        <h3>📷 Captured Images</h3>
+        @if (SavedImages.Any())
+        {
+            <div style="display: flex; flex-wrap: wrap; gap: 15px; margin-top: 15px;">
+                @foreach (var imgData in SavedImages)
+                {
+                    <div style="border: 1px solid #ddd; border-radius: 6px; padding: 5px; background: #f8f9fa;">
+                        <img src="@imgData" style="width: 240px; height: 180px; object-fit: cover; border-radius: 4px; display: block;" />
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <p style="color: #6c757d;">No image files found for date (@SelectedDate.ToString("yyyy-MM-dd")).</p>
+        }
+    </div>
+</div>
+
+@code {
+    private bool CameraMode { get; set; } = false;
+    private string StatusMessage { get; set; } = "Ready";
+
+    private DateTime SelectedDate { get; set; } = DateTime.Today;
+    private List<string> SavedImages { get; set; } = new();
+    private List<string> BarcodeLogs { get; set; } = new();
+
+    private readonly string baseFolder = @"D:\Ashwin\";
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadDayLogs();
+    }
+
+    private async Task StartCamera()
+    {
+        try
+        {
+            StatusMessage = "Initializing camera stream...";
+            CameraMode = true;
+            StateHasChanged();
+
+            await Task.Delay(350);
+
+            await JS.InvokeVoidAsync("sabCamera.start", "sabCameraVideo");
+            StatusMessage = "Camera stream successfully linked.";
+        }
+        catch (Exception ex)
+        {
+            StatusMessage = $"Failed to start hardware stream: {ex.Message}";
+        }
+        finally
+        {
+            StateHasChanged();
+        }
+    }
+
+    private async Task CapturePhoto()
+    {
+        try
+        {
+            StatusMessage = "Processing high-quality image capture...";
+            StateHasChanged();
+
+            using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(180));
+
+            string dataUrl = await JS.InvokeAsync<string>(
+                "sabCamera.capture",
+                cts.Token,
+                "sabCameraVideo"
+            );
+
+            if (string.IsNullOrWhiteSpace(dataUrl))
+            {
+                StatusMessage = "Failed to extract image data from camera component.";
+                return;
+            }
+
+            string base64 = dataUrl.Substring(dataUrl.IndexOf(',') + 1);
+            byte[] bytes = Convert.FromBase64String(base64);
+
+            if (!Directory.Exists(baseFolder))
+            {
+                Directory.CreateDirectory(baseFolder);
+            }
+
+            string fileName = $"Photo_{DateTime.Now:yyyyMMdd_HHmmss}.jpg";
+            string fullPath = Path.Combine(baseFolder, fileName);
+
+            // 1. Save Image
+            await File.WriteAllBytesAsync(fullPath, bytes);
+
+            // 2. Save Image Entry to Day-wise Log File (D:\Ashwin\Log_YYYY-MM-DD.txt)
+            string todayDate = DateTime.Now.ToString("yyyy-MM-dd");
+            string logFilePath = Path.Combine(baseFolder, $"Log_{todayDate}.txt");
+            string logEntry = $"[{DateTime.Now:HH:mm:ss}] Saved Image: {fullPath}{Environment.NewLine}";
+
+            await File.AppendAllTextAsync(logFilePath, logEntry);
+
+            StatusMessage = $"🎉 Image saved & logged: {fullPath}";
+
+            await StopCamera();
+            await LoadDayLogs();
+        }
+        catch (Exception ex)
+        {
+            StatusMessage = $"Error saving image: {ex.Message}";
+        }
+        finally
+        {
+            StateHasChanged();
+        }
+    }
+
+    private async Task ScanBarcode()
+    {
+        try
+        {
+            StatusMessage = "Scanning video feed for barcodes...";
+            StateHasChanged();
+
+            string result = await JS.InvokeAsync<string>("sabCamera.scanBarcode", "sabCameraVideo");
+
+            if (string.IsNullOrWhiteSpace(result))
+            {
+                StatusMessage = "⚠️ No barcode detected. Make sure the barcode is clear in front of the lens.";
+                return;
+            }
+
+            if (!Directory.Exists(baseFolder))
+            {
+                Directory.CreateDirectory(baseFolder);
+            }
+
+            // Save Barcode Entry to Day-wise Barcode File (D:\Ashwin\BarcodeLog_YYYY-MM-DD.txt)
+            string todayDate = DateTime.Now.ToString("yyyy-MM-dd");
+            string barcodeLogPath = Path.Combine(baseFolder, $"BarcodeLog_{todayDate}.txt");
+            string barcodeEntry = $"[{DateTime.Now:HH:mm:ss}] Barcode: {result}{Environment.NewLine}";
+
+            await File.AppendAllTextAsync(barcodeLogPath, barcodeEntry);
+
+            StatusMessage = $"✅ Barcode scanned & saved: {result}";
+            await LoadDayLogs();
+        }
+        catch (Exception ex)
+        {
+            StatusMessage = $"Barcode scanning error: {ex.Message}";
+        }
+        finally
+        {
+            StateHasChanged();
+        }
+    }
+
+    private async Task StopCamera()
+    {
+        try
+        {
+            await JS.InvokeVoidAsync("sabCamera.stop");
+        }
+        catch { }
+
+        CameraMode = false;
+        StatusMessage = "Camera stopped.";
+        StateHasChanged();
+    }
+
+    // Load saved images and day-wise barcode text logs
+    private async Task LoadDayLogs()
+    {
+        SavedImages.Clear();
+        BarcodeLogs.Clear();
+
+        if (!Directory.Exists(baseFolder)) return;
+
+        string formattedDate = SelectedDate.ToString("yyyy-MM-dd");
+
+        // 1. Read Barcode Log File (BarcodeLog_YYYY-MM-DD.txt)
+        string barcodeFilePath = Path.Combine(baseFolder, $"BarcodeLog_{formattedDate}.txt");
+        if (File.Exists(barcodeFilePath))
+        {
+            BarcodeLogs = (await File.ReadAllLinesAsync(barcodeFilePath)).ToList();
+        }
+
+        // 2. Read Daily Saved Images
+        string searchPattern = $"Photo_{SelectedDate:yyyyMMdd}_*.jpg";
+        var filePaths = Directory.GetFiles(baseFolder, searchPattern).OrderByDescending(f => f);
+
+        foreach (var file in filePaths)
+        {
+            try
+            {
+                byte[] fileBytes = await File.ReadAllBytesAsync(file);
+                string base64Src = $"data:image/jpeg;base64,{Convert.ToBase64String(fileBytes)}";
+                SavedImages.Add(base64Src);
+            }
+            catch { }
+        }
+
+        StateHasChanged();
+    }
+}

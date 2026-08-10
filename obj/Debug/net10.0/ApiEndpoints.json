@@ -1,0 +1,34 @@
+[
+  {
+    "ContainingType": "Erpweb.Controllers.UploadController",
+    "Method": "GetImages",
+    "RelativePath": "api/Upload/images",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "date",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Erpweb.Controllers.UploadController",
+    "Method": "SaveImage",
+    "RelativePath": "api/Upload/save",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "payload",
+        "Type": "Erpweb.Controllers.ImagePayload",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]

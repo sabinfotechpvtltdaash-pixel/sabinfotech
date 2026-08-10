@@ -1,0 +1,40 @@
+﻿<section class="section-padding">
+    <div class="container">
+        <div class="section-header">
+            <h2>Textile Industry Manufacturing ERP</h2>
+            <p>End-to-end digitisation for Yarn Mills, Greige Weaving, and Process Dyeing Plants.</p>
+        </div>
+
+        <div class="grid-4">
+            <div class="card-feature">
+                <div style="font-size: 32px; margin-bottom: 10px;">🧶</div>
+                <h4>1. Yarn & Spinning</h4>
+                <p style="font-size: 14px; color: var(--text-muted);">Cotton purchase, yarn count testing, lot mixing rules, spinning production, and cone package stocks.</p>
+            </div>
+            <div class="card-feature">
+                <div style="font-size: 32px; margin-bottom: 10px;">🧵</div>
+                <h4>2. Greige Weaving</h4>
+                <p style="font-size: 14px; color: var(--text-muted);">Loom production tracking, beam warping, warp/weft usage, defect marking, and grey fabric rolls.</p>
+            </div>
+            <div class="card-feature">
+                <div style="font-size: 32px; margin-bottom: 10px;">🎨</div>
+                <h4>3. Process & Dyeing</h4>
+                <p style="font-size: 14px; color: var(--text-muted);">Dye lab recipe cards, chemical batching, bleaching, shrinkage checks, and machine loading.</p>
+            </div>
+            <div class="card-feature">
+                <div style="font-size: 32px; margin-bottom: 10px;">📦</div>
+                <h4>4. Packing & Sales</h4>
+                <p style="font-size: 14px; color: var(--text-muted);">Piece/roll barcode tagging, automated packing lists, gate passes, and GST e-invoicing.</p>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 40px;">
+            <button class="btn-nav-cta" @onclick='() => OnNavigate.InvokeAsync("modules")'>View Interactive Modules</button>
+        </div>
+    </div>
+</section>
+
+@code {
+    [Parameter]
+    public EventCallback<string> OnNavigate { get; set; }
+}

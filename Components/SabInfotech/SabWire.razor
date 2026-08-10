@@ -1,0 +1,32 @@
+﻿<section class="section-padding" style="background: var(--bg-dark-primary); color: white;">
+    <div class="container">
+        <div class="section-header">
+            <h2 style="color: white;">Wire Manufacturing ERP Engine</h2>
+            <p style="color: var(--text-light);">Purpose-built for Wire Rod Drawing, Annealing, Galvanization, and Cabling units.</p>
+        </div>
+
+        <div class="grid-2">
+            <div class="card-feature card-dark">
+                <h4>⚙️ Wire Drawing & Die Life Control</h4>
+                <p style="color: var(--text-light); font-size: 14px;">Input rod gauge down to output micron tracking. Monitors die wear lifetime and pass speeds to minimize breakages.</p>
+            </div>
+            <div class="card-feature card-dark">
+                <h4>🔥 Annealing & Galvanizing Furnace</h4>
+                <p style="color: var(--text-light); font-size: 14px;">Logs oven thermal cycles, zinc immersion thickness, energy consumption per ton, and bath chemical balance.</p>
+            </div>
+            <div class="card-feature card-dark">
+                <h4>🌀 Stranding & Cable Extrusion</h4>
+                <p style="color: var(--text-light); font-size: 14px;">Multi-core cabling, PVC/XLPE insulation extrusion meters, gross weight against net metal weight.</p>
+            </div>
+            <div class="card-feature card-dark">
+                <h4>⚖️ Tare Weight & Metal Balance</h4>
+                <p style="color: var(--text-light); font-size: 14px;">Automated spool/bobbin tare deduction, physical scale integration, and coil scrap reconciliation.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+@code {
+    [Parameter]
+    public EventCallback<string> OnNavigate { get; set; }
+}

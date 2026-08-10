@@ -1,0 +1,80 @@
+﻿@page "/sabinfotech"
+@using Erpweb.Components.SabInfotech
+@rendermode InteractiveServer
+
+<PageTitle>SabInfotech ERP - Industrial Software Platform</PageTitle>
+
+<div class="sab-container">
+    <!-- Top Bar Navigation with Active Tab Controller -->
+    <nav class="sab-nav">
+        <div class="container nav-wrapper">
+            <div class="sab-logo">
+                <span class="logo-accent">Sab</span>Infotech ERP
+            </div>
+
+            <div class="sab-nav-tabs">
+                <button class="nav-tab-btn @(currentTab == "about" ? "active" : "")" @onclick='() => SelectTab("about")'>About Us</button>
+                <button class="nav-tab-btn @(currentTab == "textile" ? "active" : "")" @onclick='() => SelectTab("textile")'>Textile ERP</button>
+                <button class="nav-tab-btn @(currentTab == "wire" ? "active" : "")" @onclick='() => SelectTab("wire")'>Wire ERP</button>
+                <button class="nav-tab-btn @(currentTab == "modules" ? "active" : "")" @onclick='() => SelectTab("modules")'>ERP Modules</button>
+                <button class="nav-tab-btn @(currentTab == "contact" ? "active" : "")" @onclick='() => SelectTab("contact")'>Contact Us</button>
+            </div>
+
+            <div>
+                <button class="btn-nav-cta" @onclick='() => SelectTab("contact")'>Get Demo</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Dynamic Tab Content Loader -->
+    <main>
+        @switch (currentTab)
+        {
+            case "about":
+                <SabAbout OnNavigate="SelectTab" />
+                break;
+            case "textile":
+                <SabTextile OnNavigate="SelectTab" />
+                break;
+            case "wire":
+                <SabWire OnNavigate="SelectTab" />
+                break;
+            case "modules":
+                <SabModules OnNavigate="SelectTab" />
+                break;
+            case "contact":
+                <SabContact />
+                break;
+            default:
+                <SabAbout OnNavigate="SelectTab" />
+                break;
+        }
+    </main>
+
+    <!-- Global Enterprise Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="grid-2" style="align-items: center; padding-bottom: 20px; border-bottom: 1px solid #334155;">
+                <div>
+                    <h3 style="margin: 0; color: white;">SabInfotech ERP Solutions</h3>
+                    <p style="color: var(--text-light); margin-top: 5px;">Specialized Manufacturing ERP for Textile & Wire Processing Industries.</p>
+                </div>
+                <div style="text-align: right;">
+                    <span style="color: var(--accent); font-weight: 600;">Support Hotline: +91 98765 43210</span>
+                </div>
+            </div>
+            <div style="text-align: center; padding-top: 20px; color: var(--text-light); font-size: 13px;">
+                &copy; @DateTime.Now.Year SabInfotech Solutions Pvt Ltd. All rights reserved.
+            </div>
+        </div>
+    </footer>
+</div>
+
+@code {
+    private string currentTab = "about";
+
+    private void SelectTab(string tabName)
+    {
+        currentTab = tabName;
+    }
+}
