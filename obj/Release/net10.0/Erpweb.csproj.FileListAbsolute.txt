@@ -1,0 +1,10 @@
+C:\Users\WORK\source\repos\Erp\Erpweb\obj\Release\net10.0\EmbeddedAttribute.cs
+C:\Users\WORK\source\repos\Erp\Erpweb\obj\Release\net10.0\ValidatableTypeAttribute.cs
+C:\Users\WORK\source\repos\Erp\Erpweb\obj\Release\net10.0\Erpweb.csproj.AssemblyReference.cache
+C:\Users\WORK\source\repos\Erp\Erpweb\obj\Release\net10.0\rpswa.dswa.cache.json
+C:\Users\WORK\source\repos\Erp\Erpweb\obj\Release\net10.0\Erpweb.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\WORK\source\repos\Erp\Erpweb\obj\Release\net10.0\Erpweb.AssemblyInfoInputs.cache
+C:\Users\WORK\source\repos\Erp\Erpweb\obj\Release\net10.0\Erpweb.AssemblyInfo.cs
+C:\Users\WORK\source\repos\Erp\Erpweb\obj\Release\net10.0\Erpweb.csproj.CoreCompileInputs.cache
+C:\Users\WORK\source\repos\Erp\Erpweb\obj\Release\net10.0\Erpweb.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\WORK\source\repos\Erp\Erpweb\obj\Release\net10.0\Erpweb.sourcelink.json
